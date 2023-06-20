@@ -2,21 +2,13 @@
 <html>
 <head>
   <title>Employees Notebook/Asset Assignment Agreement</title>
-  <style>
-    /* Add CSS styling here */
-    #signatureContainer {
-      border: 1px solid black;
-      padding: 10px;
-      width: 300px;
-      margin-bottom: 20px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <h2>Employees Notebook/Asset Assignment Agreement</h2>
   <p>The management has allocated its resources to invest in a notebook/asset, which we believe will add value to the business in terms of productivity and efficiency. However, in order to prevent notebook/asset losses due to negligence, staff is advised on the following:</p>
 
-  <form id="assignmentForm">
+  <form id="assignmentForm" onsubmit="return validateForm()">
     <h3>Terms and Conditions</h3>
     <ol>
       <li>
@@ -69,37 +61,6 @@
   <script src="https://unpkg.com/signature_pad"></script>
   <script src="script.js"></script>
   <script>
-    var signaturePad = new SignaturePad(document.getElementById('signatureCanvas'));
-
-    function validateForm() {
-      var notebookId = document.getElementById("notebookId").value;
-      var fullName = document.getElementById("fullName").value;
-      var companyName = document.getElementById("companyName").value;
-      var icNumber = document.getElementById("icNumber").value;
-      var date = document.getElementById("date").value;
-
-      if (notebookId === "" || fullName === "" || companyName === "" || icNumber === "" || date === "") {
-        alert("Please fill in all fields.");
-        return false;
-      } else {
-        return true;
-      }
-    }
-
-    function submitForm() {
-      if (validateForm()) {
-        printForm();
-      }
-    }
-
-    function printForm() {
-      window.print();
-    }
-
-    function clearSignature() {
-      signaturePad.clear();
-    }
-
     // Set the date field to today's date
     var today = new Date().toISOString().split("T")[0];
     document.getElementById("date").value = today;
