@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Employees Notebook/Asset Assignment Agreement</title>
+  <style>
+    /* Add CSS styling here */
+    #signatureContainer {
+      border: 1px solid black;
+      padding: 10px;
+      width: 300px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Employees Notebook/Asset Assignment Agreement</h2>
+  <p>The management has allocated its resources to invest in a notebook/asset, which we believe will add value to the business in terms of productivity and efficiency. However, in order to prevent notebook/asset losses due to negligence, staff is advised on the following:</p>
+
+  <form id="assignmentForm">
+    <h3>Terms and Conditions</h3>
+    <ol>
+      <li>
+        <p>
+          1.1 You are required to exercise the same degree of care in using, protecting, and safekeeping the notebook/asset in a way that you would to a personal belonging of a similar nature.
+        </p>
+      </li>
+      <li>
+        <p>
+          1.2 The company will not accept any loss, theft, or damage of laptops due to negligence on your part. Any notebook/asset left in any open, unsecured, unlocked, unsafe place and unattended, which can be reasonably foreseen to subject the notebook/asset to a high risk of loss, theft, or damages. For example, loss of notebook/asset in a locked and unattended vehicle or left unattended in a client's place. The incidences of loss due to negligence will not be limited to the examples given and is not exhaustive.
+        </p>
+      </li>
+    </ol>
+
+    <h3>Incident Reporting</h3>
+    <p>
+      2. Please report in writing any incident of loss, theft, or damage on the notebook/asset to the management of the company for further action, within the same or the next working day, stating clearly the causes for loss, theft, or damage. If it happens beyond the office compound, please make a police report within the same period as evidence.
+    </p>
+
+    <h3>Compensation</h3>
+    <p>
+      3. In the event of loss, theft, or damage due to negligence on your part, the company will have all the rights to request you to compensate the company for the notebook/asset with the original purchase cost plus any cost of upgrades or the amount determined by the management with reasonable judgment.
+    </p>
+
+    <h3>Employee Information</h3>
+    <label for="notebookId">Notebook ID:</label>
+    <input type="text" id="notebookId" required><br>
+
+    <label for="fullName">Full Name:</label>
+    <input type="text" id="fullName" required><br>
+
+    <label for="companyName">Company Name:</label>
+    <input type="text" id="companyName" required><br>
+
+    <label for="icNumber">IC Number:</label>
+    <input type="text" id="icNumber" required><br>
+
+    <label for="date">Date:</label>
+    <input type="date" id="date" value="" required><br>
+
+    <label for="signature">Signature:</label>
+    <div id="signatureContainer">
+      <canvas id="signatureCanvas" width="300" height="150"></canvas>
+    </div>
+    <button onclick="clearSignature()">Clear Signature</button><br>
+
+    <button type="button" onclick="submitForm()">Submit</button>
+  </form>
+
+  <script src="https://unpkg.com/signature_pad"></script>
+  <script src="script.js"></script>
+  <script>
+    var signaturePad = new SignaturePad(document.getElementById('signatureCanvas'));
+
+    function validateForm() {
+      var notebookId = document.getElementById("notebookId").value;
+      var fullName = document.getElementById("fullName").value;
+      var companyName = document.getElementById("companyName").value;
+      var icNumber = document.getElementById("icNumber").value;
+      var date = document.getElementById("date").value;
+
+      if (notebookId === "" || fullName === "" || companyName === "" || icNumber === "" || date === "") {
+        alert("Please fill in all fields.");
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    function submitForm() {
+      if (validateForm()) {
+        printForm();
+      }
+    }
+
+    function printForm() {
+      window.print();
+    }
+
+    function clearSignature() {
+      signaturePad.clear();
+    }
+
+    // Set the date field to today's date
+    var today = new Date().toISOString().split("T")[0];
+    document.getElementById("date").value = today;
+  </script>
+</body>
+</html>
