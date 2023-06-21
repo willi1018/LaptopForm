@@ -13,9 +13,9 @@
     }
 
     body {
-	background-image: url('bg1.jpg');
-	  background-repeat: no-repeat;
-	  background-size: 2000px 1000px;
+      background-image: url('bg1.jpg');
+      background-repeat: no-repeat;
+      background-size: 2000px 1000px;
       margin: 0;
       padding: 0;
     }
@@ -24,10 +24,7 @@
       max-width: 794px; /* A4 width in pixels (assuming 72 dpi) */
       margin: 0 auto;
       padding: 20px;
-	  background-color: #F4F4F4;
-	  
-	  
-	  
+      background-color: #F4F4F4;
     }
 
     #logo {
@@ -60,22 +57,25 @@
 </head>
 <body>
   <div class="container">
-    <img id="logo" src="logo.png" alt="Logo">
+    
+	
+	<img id="logo" src="logo.png" alt="Logo">
+	<form id="assignmentForm">
 
     <h2>Employees Notebook/Asset Assignment Agreement</h2>
     <p>The management has allocated its resources to invest in a notebook/asset, which we believe will add value to the business in terms of productivity and efficiency. However, in order to prevent notebook/asset losses due to negligence, staff is advised on the following:</p>
 
     <form id="assignmentForm">
       <h3>Terms and Conditions</h3>
-      
+
       <p>
         1.1 You are required to exercise the same degree of care in using, protecting, and safekeeping the notebook/asset in a way that you would to a personal belonging of a similar nature.
       </p>
-        
+
       <p>
         1.2 The company will not accept any loss, theft, or damage of laptops due to negligence on your part. Any notebook/asset left in any open, unsecured, unlocked, unsafe place and unattended, which can be reasonably foreseen to subject the notebook/asset to a high risk of loss, theft, or damages. For example, loss of notebook/asset in a locked and unattended vehicle or left unattended in a client's place. The incidences of loss due to negligence will not be limited to the examples given and is not exhaustive.
       </p>
-      
+
 
       <p>
         2. Please report in writing any incident of loss, theft, or damage on the notebook/asset to the management of the company for further action, within the same or the next working day, stating clearly the causes for loss, theft, or damage. If it happens beyond the office compound, please make a police report within the same period as evidence.
@@ -118,13 +118,13 @@
       </div>
 
       <div class="form-row">
-        <button type="button" onclick="submitForm()">Submit</button>
+        <button type="button" onclick="generatePDF()">Export to PDF</button>
       </div>
     </form>
   </div>
 
   <script src="https://unpkg.com/signature_pad"></script>
-  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
   <script>
     var signaturePad = new SignaturePad(document.getElementById('signatureCanvas'));
 
@@ -143,15 +143,19 @@
       }
     }
 
-    function submitForm() {
-      if (validateForm()) {
-        printForm();
-      }
-    }
-
-    function printForm() {
-      window.print();
-    }
+    function generatePDF() {
+  if (validateForm()) {
+    var formElement = document.getElementById("assignmentForm");
+    var opt = {
+      margin: 0.5,
+      filename: 'notebook_assignment_agreement.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(formElement).save();
+  }
+}
 
     function clearSignature() {
       signaturePad.clear();
